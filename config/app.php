@@ -180,6 +180,11 @@ return [
         App\Providers\v1\BurgerServiceProvider::class,
         App\Providers\v1\IngredientServiceProvider::class,
         App\Providers\v1\GroupServiceProvider::class,
+        App\Providers\v1\MemberServiceProvider::class,
+        App\Providers\v1\UserServiceProvider::class,
+
+        //header service
+        Barryvdh\Cors\ServiceProvider::class,
 
     ],
 

@@ -7,14 +7,14 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Services\v1\BurgerService;
+use App\Services\v1\MemberService;
 
-class BurgerController extends Controller
+class MemberController extends Controller
 {
-    protected $burgers;
-    public function __construct(BurgerService $service)
+    protected $members;
+    public function __construct(MemberService $service)
     {
-        $this->burgers = $service;
+        $this->members = $service;
 
         $this->middleware('auth:api', ['only' => ['store']]);
     }
@@ -29,7 +29,7 @@ class BurgerController extends Controller
         $parameters = request()->input();
 
         //call service
-        $data = $this->burgers->getBurgers($parameters);
+        $data = $this->members->getMembers($parameters);
 
         return response()->json($data);
 
@@ -44,12 +44,12 @@ class BurgerController extends Controller
      */
     public function store(Request $request)
     {
-        $this->burgers->validate($request->all());
+        $this->members->validate($request->all());
 
         try
         {
-            $burger = $this->burgers->createBurger($request);
-            return response()->json($burger, 201);
+            $member = $this->members->createMember($request);
+            return response()->json($member, 201);
         }
         catch (Exception $e)
         {
@@ -68,7 +68,7 @@ class BurgerController extends Controller
         $parameters['id'] = $id;
 
         //call service
-        $data = $this->burgers->getBurgers($parameters);
+        $data = $this->members->getMembers($parameters);
 
         return response()->json($data);
     }
@@ -83,12 +83,12 @@ class BurgerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->burgers->validate($request->all());
+        $this->members->validate($request->all());
 
         try
         {
-            $burger = $this->burgers->updateBurger($request, $id);
-            return response()->json($burger, 200);
+            $member = $this->members->updateMember($request, $id);
+            return response()->json($member, 200);
         }
         catch (ModelNotFoundException $ex)
         {
@@ -110,7 +110,7 @@ class BurgerController extends Controller
     {
         try
         {
-            $burger = $this->burgers->deleteBurger($id);
+            $member = $this->members->deleteMember($id);
             return response()->make('', 204);
         }
         catch (ModelNotFoundException $ex)

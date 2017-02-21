@@ -30,3 +30,11 @@ Route::resource('/v1/ingredients', v1\IngredientController::class, [
 Route::resource('/v1/groups', v1\GroupController::class, [
     'except' => ['create', 'edit']
 ]);
+
+Route::resource('/v1/members', v1\MemberController::class, [
+    'except' => ['create', 'edit']
+]);
+
+Route::resource('/v1/user', v1\UserController::class, [
+    'except' => ['create', 'edit']
+]);

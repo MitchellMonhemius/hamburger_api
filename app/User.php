@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'rank', 'score', 'image_url'
     ];
 
     /**
@@ -32,6 +32,9 @@ class User extends Authenticatable
         if(empty($this->api_token))
         {
             $this->api_token = str_random(60);
+            $this->rank      = 1;
+            $this->score     = 1;
+            $this->image_url = "image";
         }
 
         return parent::save($options);

@@ -18,9 +18,6 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
-            $table->float('rank');
-            $table->float('score');
-            $table->string('image_url');
             $table->rememberToken();
             $table->timestamps();
         });

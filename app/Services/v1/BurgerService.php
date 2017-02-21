@@ -5,7 +5,7 @@ namespace App\Services\v1;
 use Validator;
 
 use App\Burgers;
-use App\ingredients;
+use App\Ingredients;
 
 
 
@@ -15,7 +15,12 @@ class BurgerService
 		'burgerIngredients' => 'ingredients'
 	];
 
-	protected $clauseProperties = ['name'];
+	protected $clauseProperties = [
+		'id',
+		'name',
+		'group_id',
+		'chef_id'
+	];
 
     protected $rules = [
         'name' => 'required'
@@ -53,6 +58,7 @@ class BurgerService
 
         $burger->name 			= $req->input('name');
         $burger->image_url 		= $req->input('image_url');
+        $burger->chef_id		= null; //user.id
 
         $burger->save();
 
@@ -65,6 +71,7 @@ class BurgerService
 
         $burger->name 			= $req->input('name');
         $burger->image_url 		= $req->input('image_url');
+        $burger->chef_id		= null; //user.id
 
         $burger->save();
 
@@ -92,7 +99,9 @@ class BurgerService
 			$entry = [
 				'id'  		=> $burger->id,
 				'name'		=> $burger->name,
-				'href'		=> $burger->image_url
+				'image'		=> $burger->image_url,
+				'chef_id'	=> null,
+				'group_id'	=> $burger->group_id
 			];
 
 			if (in_array('burgerIngredients', $keys))

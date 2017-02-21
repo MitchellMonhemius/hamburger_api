@@ -6,15 +6,20 @@ use Validator;
 
 use App\Groups;
 use App\Burgers;
+use App\User;
+use App\Members;
 
 
 class GroupService
 {
 	protected $supportedIncludes = [
-		'groupBurgers' => 'burgers'
+		'groupBurgers' => 'burgers',
+		'groupChefs'   => 'chefs'
 	];
 
-	protected $clauseProperties = [];
+	protected $clauseProperties = [
+		'id',
+	];
 
     protected $rules = [
         'name' => 'required'
@@ -101,6 +106,11 @@ class GroupService
 				{
 					array_push($entry['burgers'],$burger->name);
 				}
+			}
+
+			if (in_array('groupChefs', $keys))
+			{
+				$entry['chefs'] = Groups::getUserByGroup($group->id);
 			}
 
 			$data[] = $entry;
